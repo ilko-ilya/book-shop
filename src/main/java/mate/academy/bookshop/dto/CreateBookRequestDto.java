@@ -16,6 +16,5 @@ public class CreateBookRequestDto {
     @Min(0)
     private BigDecimal price;
     private String description;
-    @NotNull
     private String coverImage;
 }
