@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-books-table-with-books
+      author: ilya
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: "title", value: "Harry Potter" }
+              - column: { name: "author", value: "Joanne Rowling" }
+              - column: { name: "isbn", value: "654-1234567891" }
+              - column: { name: "price", valueComputed: "CAST('29.99' AS DECIMAL(10, 2))" }
+              - column: { name: "description", value: "Adventure" }
+              - column: { name: "cover_image", value: "https://example.com/updated-cover_image.jpg" }
+              - column: { name: "is_deleted", valueComputed: "0" }
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: "title", value: "Pirates of Caribbean sea" }
+              - column: { name: "author", value: "Taras Shevchenko" }
+              - column: { name: "isbn", value: "321-1234567891" }
+              - column: { name: "price", valueComputed: "CAST('49.99' AS DECIMAL(10, 2))" }
+              - column: { name: "description", value: "Good movie" }
+              - column: { name: "cover_image", value: "https://example.com/movie-covering-image.jpg" }
+              - column: { name: "is_deleted", valueComputed: "0" }
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: "title", value: "Deep blue sea" }
+              - column: { name: "author", value: "Lesia Ukrainka" }
+              - column: { name: "isbn", value: "123-1234567891" }
+              - column: { name: "price", valueComputed: "CAST('99.99' AS DECIMAL(10, 2))" }
+              - column: { name: "description", value: "Impacble movie" }
+              - column: { name: "cover_image", value: "https://example.com/movie-covers-image.jpg" }
+              - column: { name: "is_deleted", valueComputed: "0" }
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: "title", value: "Indiana Jones" }
+              - column: { name: "author", value: "Devid Kepp" }
+              - column: { name: "isbn", value: "674-123475678" }
+              - column: { name: "price", valueComputed: "CAST('49.99' AS DECIMAL(10, 2))" }
+              - column: { name: "description", value: "Adventure" }
+              - column: { name: "cover_image", value: "https://example.com/upgrade-covering-image.jpg" }
+              - column: { name: "is_deleted", valueComputed: "0" }
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: "title", value: "Iron Man" }
+              - column: { name: "author", value: "Jacky Chan" }
+              - column: { name: "isbn", value: "674-123499978" }
+              - column: { name: "price", valueComputed: "CAST('59.99' AS DECIMAL(10, 2))" }
+              - column: { name: "description", value: "Adventure, fantasy" }
+              - column: { name: "cover_image", value: "https://examples.com/up-covering-image.jpg" }
+              - column: { name: "is_deleted", valueComputed: "0" }
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: "title", value: "Age of Emperies" }
+              - column: { name: "author", value: "Tonny Jaa" }
+              - column: { name: "isbn", value: "64-1235499978" }
+              - column: { name: "price", valueComputed: "CAST('11.99' AS DECIMAL(10, 2))" }
+              - column: { name: "description", value: "Adventure, action" }
+              - column: { name: "cover_image", value: "https://examples.com/updown-covering-image.jpg" }
+              - column: { name: "is_deleted", valueComputed: "0" }
+
+
