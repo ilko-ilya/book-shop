@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-users-table-with-users
+      author: ilya
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: "email", value: "mila@gmail.com" }
+              - column: { name: "password", value: "$2a$12$1HsMhwEl5sI5ykPjY1SJ5e4NtIg5j0kYaUrkvuU/V74KQF7g.o0km" } # "123"}
+              - column: { name: "first_name", value: "Mila" }
+              - column: { name: "last_name", value: "Samilyak" }
+              - column: { name: "shipping_address", value: "Gogolya 9" }
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: "email", value: "wind@gmail.com" }
+              - column: { name: "password", value: "$2a$12$FrMNSfmq.9CZTmSAex928ued5fs2vUjHDbSb/M4t7vkQvAt7o7CWS" } # "456"}
+              - column: { name: "first_name", value: "Vitaliy" }
+              - column: { name: "last_name", value: "Vetrenko" }
+              - column: { name: "shipping_address", value: "Chechova 9" }
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: "email", value: "RomanKl@gmail.com" }
+              - column: { name: "password", value: "$2a$12$6URB4/v1DQXZm3MskZ.1g.XbBDonr2JLvnhGigJNG3IEeKM8yZWwe" } # "789"}
+              - column: { name: "first_name", value: "Roman" }
+              - column: { name: "last_name", value: "Klish" }
+              - column: { name: "shipping_address", value: "Ivanenko 90" }
