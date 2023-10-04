@@ -6,9 +6,10 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.BookDto;
+import mate.academy.bookshop.dto.BookDtoWithoutCategoryIds;
 import mate.academy.bookshop.dto.BookSearchParameters;
 import mate.academy.bookshop.dto.CreateBookRequestDto;
-import mate.academy.bookshop.service.BookService;
+import mate.academy.bookshop.service.book.BookService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,6 +46,7 @@ public class BookController {
 
     @Operation(summary = "Create a new book", description = "Create a new book")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookDto save(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
@@ -64,6 +66,15 @@ public class BookController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         bookService.deleteById(id);
+    }
+
+    @Operation(summary = "Get list of books by categoryId",
+            description = "Get list of books by categoryId")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/{categoryId}/books")
+    public List<BookDtoWithoutCategoryIds> getAllBooksByCategoryId(
+            @PathVariable Long categoryId) {
+        return bookService.getAllBooksByCategoryId(categoryId);
     }
 
     @Operation(summary = "Search a book by author and title",

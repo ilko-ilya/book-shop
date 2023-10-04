@@ -1,4 +1,4 @@
-package mate.academy.bookshop.service;
+package mate.academy.bookshop.service.user;
 
 import java.util.Set;
 import lombok.RequiredArgsConstructor;

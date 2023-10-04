@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-categories-table-with-categories
+      author: ilya
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column: {name: "name", value: "Fantasy"}
+              - column: {name: "description", value: "Fantasy books"}
+        - insert:
+            tableName: categories
+            columns:
+              - column: {name: "name", value: "Detectives"}
+              - column: {name: "description", value: "Detectives books"}
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: "name", value: "Novels" }
+              - column: { name: "description", value: "Novels books" }
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: "name", value: "Thrillers" }
+              - column: { name: "description", value: "Thrillers books" }
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: "name", value: "Horrors" }
+              - column: { name: "description", value: "Horrors books" }
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: "name", value: "Comics" }
+              - column: { name: "description", value: "Comics books" }
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: "name", value: "Adventures" }
+              - column: { name: "description", value: "Adventures books" }
