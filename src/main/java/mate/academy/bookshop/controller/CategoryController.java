@@ -7,7 +7,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.category.CategoryDto;
 import mate.academy.bookshop.dto.category.CreateCategoryRequestDto;
-import mate.academy.bookshop.service.book.BookService;
 import mate.academy.bookshop.service.category.CategoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/category")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final BookService bookService;
 
     @Operation(summary = "Create a new category", description = "Create a new category")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

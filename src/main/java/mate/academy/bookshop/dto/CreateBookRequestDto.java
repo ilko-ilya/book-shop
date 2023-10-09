@@ -23,4 +23,5 @@ public class CreateBookRequestDto {
     private String coverImage;
     @NotNull
     private Set<Long> categoryIds;
+
 }
