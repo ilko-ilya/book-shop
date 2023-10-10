@@ -7,9 +7,11 @@ import mate.academy.bookshop.dto.user.UserResponseDto;
 import mate.academy.bookshop.exception.RegistrationException;
 import mate.academy.bookshop.mapper.UserMapper;
 import mate.academy.bookshop.model.Role;
+import mate.academy.bookshop.model.ShoppingCart;
 import mate.academy.bookshop.model.User;
 import mate.academy.bookshop.model.enums.RoleName;
 import mate.academy.bookshop.repository.role.RoleRepository;
+import mate.academy.bookshop.repository.shoppingcart.ShoppingCartRepository;
 import mate.academy.bookshop.repository.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto request)
@@ -37,6 +40,10 @@ public class UserServiceImpl implements UserService {
         Role roleByName = roleRepository.findRoleByName(RoleName.ROLE_USER).orElseThrow(
                 () -> new RegistrationException("Can't find role by name!"));
         user.setRoles(Set.of(roleByName));
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCartRepository.save(shoppingCart);
         return userMapper.toUserResponseDto(userRepository.save(user));
     }
 }
