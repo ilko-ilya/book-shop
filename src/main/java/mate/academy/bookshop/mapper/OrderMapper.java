@@ -1,7 +1,6 @@
 package mate.academy.bookshop.mapper;
 
 import mate.academy.bookshop.config.MapperConfig;
-import mate.academy.bookshop.dto.order.CreateOrderRequestDto;
 import mate.academy.bookshop.dto.order.OrderDto;
 import mate.academy.bookshop.model.Order;
 import org.mapstruct.Mapper;
@@ -11,6 +10,4 @@ import org.mapstruct.Mapping;
 public interface OrderMapper {
     @Mapping(source = "user.id", target = "userId")
     OrderDto toDto(Order order);
-
-    Order toModel(CreateOrderRequestDto requestDto);
 }

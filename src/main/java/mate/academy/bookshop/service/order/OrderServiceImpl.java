@@ -12,6 +12,7 @@ import mate.academy.bookshop.dto.orderitem.OrderItemDto;
 import mate.academy.bookshop.exception.EntityNotFoundException;
 import mate.academy.bookshop.mapper.OrderItemMapper;
 import mate.academy.bookshop.mapper.OrderMapper;
+import mate.academy.bookshop.model.CartItem;
 import mate.academy.bookshop.model.Order;
 import mate.academy.bookshop.model.OrderItem;
 import mate.academy.bookshop.model.ShoppingCart;
@@ -42,20 +43,14 @@ public class OrderServiceImpl implements OrderService {
                 .findShoppingCartByUserId(user.getId())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find shoppingCart by userId: " + user.getId()));
-        Order order = new Order();
-        order.setOrderDate(LocalDateTime.now());
-        order.setUser(user);
-        order.setStatus(Status.PENDING);
-        order.setShippingAddress(user.getShippingAddress());
+        Order order = buildOrder(user);
         Set<OrderItem> orderItemsFromShoppingCart = getOrderItemsFromShoppingCart(
                 shoppingCartByUserId, order);
-        BigDecimal total = orderItemsFromShoppingCart.stream()
-                .map(orderItem -> orderItem.getBook().getPrice()
-                        .multiply(new BigDecimal(orderItem.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal total = calculateTotal(orderItemsFromShoppingCart);
         order.setTotal(total);
-        shoppingCartByUserId.getCartItems().forEach(
-                cartItem -> cartItemRepository.deleteById(cartItem.getId()));
+
+        clearShoppingCart(shoppingCartByUserId);
+
         orderRepository.save(order);
         order.setOrderItems(orderItemsFromShoppingCart);
         orderItemRepository.saveAll(orderItemsFromShoppingCart);
@@ -98,17 +93,40 @@ public class OrderServiceImpl implements OrderService {
         return orderItemMapper.toDto(orderItem);
     }
 
+    private OrderItem createOrderItem(CartItem cartItem, Order order) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setBook(cartItem.getBook());
+        orderItem.setOrder(order);
+        orderItem.setPrice(cartItem.getBook().getPrice());
+        orderItem.setQuantity(cartItem.getQuantity());
+        return orderItem;
+    }
+
     private Set<OrderItem> getOrderItemsFromShoppingCart(ShoppingCart shoppingCart, Order order) {
         return shoppingCart.getCartItems()
                 .stream()
-                .map(cartItem -> {
-                    OrderItem orderItem = new OrderItem();
-                    orderItem.setBook(cartItem.getBook());
-                    orderItem.setOrder(order);
-                    orderItem.setPrice(cartItem.getBook().getPrice());
-                    orderItem.setQuantity(cartItem.getQuantity());
-                    return orderItem;
-                })
+                .map(cartItem -> createOrderItem(cartItem, order))
                 .collect(Collectors.toSet());
+    }
+
+    private Order buildOrder(User user) {
+        Order order = new Order();
+        order.setOrderDate(LocalDateTime.now());
+        order.setUser(user);
+        order.setStatus(Status.PENDING);
+        order.setShippingAddress(user.getShippingAddress());
+        return order;
+    }
+
+    private BigDecimal calculateTotal(Set<OrderItem> orderItems) {
+        return orderItems.stream()
+                .map(orderItem -> orderItem.getBook().getPrice()
+                        .multiply(new BigDecimal(orderItem.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private void clearShoppingCart(ShoppingCart shoppingCart) {
+        shoppingCart.getCartItems().forEach(
+                cartItem -> cartItemRepository.deleteById(cartItem.getId()));
     }
 }
