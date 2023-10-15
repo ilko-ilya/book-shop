@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.order.OrderDto;
-import mate.academy.bookshop.dto.orderitem.OrderItemDto;
+import mate.academy.bookshop.dto.order.OrderItemDto;
 import mate.academy.bookshop.model.User;
 import mate.academy.bookshop.model.enums.Status;
 import mate.academy.bookshop.service.order.OrderService;

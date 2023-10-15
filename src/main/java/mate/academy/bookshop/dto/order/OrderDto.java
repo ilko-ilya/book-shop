@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.Data;
-import mate.academy.bookshop.dto.orderitem.OrderItemDto;
 import mate.academy.bookshop.model.enums.Status;
 
 @Data

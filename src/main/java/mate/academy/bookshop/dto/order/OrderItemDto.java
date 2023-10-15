@@ -1,4 +1,4 @@
-package mate.academy.bookshop.dto.orderitem;
+package mate.academy.bookshop.dto.order;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package mate.academy.bookshop.dto.orderitem;
+package mate.academy.bookshop.dto.order;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

@@ -2,7 +2,7 @@ package mate.academy.bookshop.service.order;
 
 import java.util.List;
 import mate.academy.bookshop.dto.order.OrderDto;
-import mate.academy.bookshop.dto.orderitem.OrderItemDto;
+import mate.academy.bookshop.dto.order.OrderItemDto;
 import mate.academy.bookshop.model.enums.Status;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;

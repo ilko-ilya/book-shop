@@ -1,8 +1,8 @@
 package mate.academy.bookshop.mapper;
 
 import mate.academy.bookshop.config.MapperConfig;
-import mate.academy.bookshop.dto.orderitem.CreateOrderItemRequestDto;
-import mate.academy.bookshop.dto.orderitem.OrderItemDto;
+import mate.academy.bookshop.dto.order.CreateOrderItemRequestDto;
+import mate.academy.bookshop.dto.order.OrderItemDto;
 import mate.academy.bookshop.model.OrderItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
