@@ -3,7 +3,9 @@ package mate.academy.bookshop.dto;
 import java.math.BigDecimal;
 import java.util.Set;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Accessors
 @Data
 public class BookDto {
     private Long id;
