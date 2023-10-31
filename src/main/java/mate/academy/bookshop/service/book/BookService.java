@@ -6,7 +6,9 @@ import mate.academy.bookshop.dto.BookDtoWithoutCategoryIds;
 import mate.academy.bookshop.dto.BookSearchParameters;
 import mate.academy.bookshop.dto.CreateBookRequestDto;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface BookService {
     BookDto save(CreateBookRequestDto requestDto);
 

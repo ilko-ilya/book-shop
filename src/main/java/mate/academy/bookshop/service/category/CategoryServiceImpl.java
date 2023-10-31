@@ -1,21 +1,27 @@
 package mate.academy.bookshop.service.category;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.category.CategoryDto;
 import mate.academy.bookshop.dto.category.CreateCategoryRequestDto;
 import mate.academy.bookshop.exception.EntityNotFoundException;
 import mate.academy.bookshop.mapper.CategoryMapper;
 import mate.academy.bookshop.model.Category;
 import mate.academy.bookshop.repository.category.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+
+    @Autowired
+    public CategoryServiceImpl(CategoryRepository categoryRepository,
+                               CategoryMapper categoryMapper) {
+        this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
+    }
 
     @Override
     public List<CategoryDto> findAll(Pageable pageable) {
@@ -41,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Can't find category by id" + id));
+                () -> new EntityNotFoundException("Can't find category by id: " + id));
         return categoryMapper.toDto(category);
     }
 
