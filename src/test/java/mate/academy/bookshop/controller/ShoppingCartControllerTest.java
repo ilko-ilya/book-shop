@@ -4,12 +4,14 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashSet;
 import java.util.Set;
 import mate.academy.bookshop.dto.BookDto;
+import mate.academy.bookshop.dto.cartitem.CartItemUpdateDto;
 import mate.academy.bookshop.dto.cartitem.CreateCartItemRequestDto;
 import mate.academy.bookshop.model.Role;
 import mate.academy.bookshop.model.User;
@@ -23,6 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -45,6 +48,9 @@ public class ShoppingCartControllerTest {
 
     @WithMockUser(username = "test", password = "test", roles = {"ADMIN", "USER"})
     @DisplayName("Add new cartItem to the shoppingCart")
+    @Sql(scripts =
+            "classpath:database/cart-items/delete-cart_item-by-id-1-from-cart_items-table.sql",
+            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @Test
     public void addCartItemToShoppingCart_ValidRequestDto_Success() throws Exception {
         User user = getMockUser(1L);
@@ -77,8 +83,23 @@ public class ShoppingCartControllerTest {
 
     @Test
     @DisplayName("Update shoppingCart")
-    public void updateShoppingCart_WithValidDate_Success() {
+    @Sql(scripts = "classpath:database/cart-items/insert-cart_item-to-cart_items-table.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:database/cart-items/delete-cart_item-from-cart_items-table.sql",
+            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    public void updateShoppingCart_WithValidDate_Success() throws Exception {
+        Long userId = 1L;
+        User mockUser = getMockUser(userId);
 
+        Long cartItemId = 1L;
+        CartItemUpdateDto updateDto = new CartItemUpdateDto();
+        updateDto.setQuantity(3);
+
+        mockMvc.perform(put("/api/cart/cart-items/{cartItemId}", cartItemId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(user(mockUser))
+                        .content(objectMapper.writeValueAsString(updateDto)))
+                .andExpect(status().isOk());
     }
 
     @WithMockUser(username = "test", password = "test", roles = {"ADMIN", "USER"})
