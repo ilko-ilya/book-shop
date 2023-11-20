@@ -8,7 +8,6 @@ import mate.academy.bookshop.dto.user.UserLoginRequestDto;
 import mate.academy.bookshop.dto.user.UserLoginResponseDto;
 import mate.academy.bookshop.dto.user.UserRegistrationRequestDto;
 import mate.academy.bookshop.dto.user.UserResponseDto;
-import mate.academy.bookshop.exception.RegistrationException;
 import mate.academy.bookshop.security.AuthenticationService;
 import mate.academy.bookshop.service.user.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
