@@ -8,7 +8,6 @@ import mate.academy.bookshop.dto.user.UserLoginRequestDto;
 import mate.academy.bookshop.dto.user.UserLoginResponseDto;
 import mate.academy.bookshop.dto.user.UserRegistrationRequestDto;
 import mate.academy.bookshop.dto.user.UserResponseDto;
-import mate.academy.bookshop.exception.RegistrationException;
 import mate.academy.bookshop.security.AuthenticationService;
 import mate.academy.bookshop.service.user.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,14 +25,13 @@ public class AuthenticationController {
 
     @Operation(summary = "Login", description = "To login users")
     @PostMapping("/login")
-    public UserLoginResponseDto login(@RequestBody UserLoginRequestDto requestDto) {
+    public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto requestDto) {
         return authenticationService.authenticate(requestDto);
     }
 
     @Operation(summary = "Register", description = "To register users")
     @PostMapping("/register")
-    public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request)
-            throws RegistrationException {
+    public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request) {
         return userService.register(request);
     }
 }

@@ -1,0 +1,1 @@
+DELETE  FROM cart_items WHERE id between 1 and 3;
