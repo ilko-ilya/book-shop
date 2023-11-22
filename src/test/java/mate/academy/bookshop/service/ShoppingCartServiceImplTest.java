@@ -204,16 +204,3 @@ public class ShoppingCartServiceImplTest {
         return currentUser;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
